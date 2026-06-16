@@ -172,6 +172,58 @@ function Index() {
         </div>
       </section>
 
+      {/* Leadership Vault */}
+      <section id="philosophy" className="relative z-10 mx-auto w-full max-w-5xl px-6 pb-32">
+        <div className="mb-10 flex items-center gap-3">
+          <div className="h-px flex-1 bg-border" />
+          <span className="text-xs font-medium uppercase tracking-widest text-subtle">
+            Operating Manual
+          </span>
+          <div className="h-px flex-1 bg-border" />
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          {/* Philosophy 1 */}
+          <div className="group rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:border-foreground/20 hover:bg-card/80">
+            <div className="mb-6 flex h-8 w-8 items-center justify-center rounded-full border border-border text-xs font-semibold text-subtle transition-colors group-hover:border-foreground/30 group-hover:text-foreground">
+              01
+            </div>
+            <h3 className="mb-4 text-lg font-semibold tracking-tight text-foreground">
+              Problem Obsession Over Feature Attachment
+            </h3>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              Our objective is not to release meticulously built features; it is to solve the business problem. When a blocker hits—like an unavailable model—we do not panic. We pivot, explore, and often end up interfacing a more powerful or cost-effective alternative. Let&apos;s get to it.
+            </p>
+          </div>
+
+          {/* Philosophy 2 */}
+          <div className="group rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:border-foreground/20 hover:bg-card/80">
+            <div className="mb-6 flex h-8 w-8 items-center justify-center rounded-full border border-border text-xs font-semibold text-subtle transition-colors group-hover:border-foreground/30 group-hover:text-foreground">
+              02
+            </div>
+            <h3 className="mb-4 text-lg font-semibold tracking-tight text-foreground">
+              High-Trust, Ego-Free Execution
+            </h3>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              I intentionally build self-aware, transparent engineering squads. We prioritize the right outcome over being the loudest voice in the room. Feedback loops are instant, and we move faster because we do not waste time protecting egos.
+            </p>
+          </div>
+
+          {/* Philosophy 3 */}
+          <div className="group rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:border-foreground/20 hover:bg-card/80">
+            <div className="mb-6 flex h-8 w-8 items-center justify-center rounded-full border border-border text-xs font-semibold text-subtle transition-colors group-hover:border-foreground/30 group-hover:text-foreground">
+              03
+            </div>
+            <h3 className="mb-4 text-lg font-semibold tracking-tight text-foreground">
+              Long-Range Strategic Instinct
+            </h3>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              I look past immediate roadmaps to anchor product decisions in long-term enterprise scale. I don&apos;t just solve the visible ticket; I architect structural solutions that prevent the next ten friction points.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <footer
         id="contact"
         className="relative z-10 mx-auto flex w-full max-w-6xl items-center justify-between border-t border-border px-6 py-6 text-xs text-subtle"
