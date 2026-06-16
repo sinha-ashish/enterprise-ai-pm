@@ -77,3 +77,8 @@
     linear-gradient(to bottom, oklch(1 0 0 / 0.035) 1px, transparent 1px);
   background-size: 64px 64px;
 }
+
+@keyframes pipe {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
