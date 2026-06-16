@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -7,7 +8,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "I build the structural alignment and high-trust culture enterprise product teams need to ship undeniable user value at record speed.",
+          "Elite Product & Delivery Orchestrator. Structural alignment and high-trust culture for enterprise AI delivery at record speed.",
       },
       { property: "og:title", content: "Portfolio — High-signal product execution" },
       {
@@ -23,216 +24,388 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-background text-foreground">
+    <div className="relative min-h-screen overflow-x-hidden bg-background text-foreground">
       {/* Ambient backdrop */}
-      <div className="pointer-events-none absolute inset-0 bg-grid-faint [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]" />
-      <div className="pointer-events-none absolute left-1/2 top-[-20%] h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-[oklch(0.4_0.08_270)] opacity-[0.18] blur-[140px]" />
+      <div className="pointer-events-none fixed inset-0 bg-grid-faint [mask-image:radial-gradient(ellipse_at_center,black_25%,transparent_75%)]" />
+      <div className="pointer-events-none fixed left-1/2 top-[-20%] h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-[oklch(0.4_0.08_270)] opacity-[0.15] blur-[140px]" />
 
-      {/* Nav */}
-      <header className="relative z-10 mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6">
-        <div className="flex items-center gap-2 text-sm font-medium tracking-tight">
-          <span className="inline-block h-2 w-2 rounded-full bg-foreground" />
-          <span>Index</span>
-          <span className="text-subtle">/</span>
-          <span className="text-muted-foreground">Portfolio</span>
-        </div>
-        <nav className="hidden items-center gap-8 text-sm text-muted-foreground sm:flex">
-          <a href="#work" className="transition-colors hover:text-foreground">Work</a>
-          <a href="#metrics" className="transition-colors hover:text-foreground">Metrics</a>
-          <a href="#contact" className="transition-colors hover:text-foreground">Contact</a>
-        </nav>
-      </header>
+      <FloatingNav />
 
-      {/* Hero */}
-      <main className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center px-6 pb-32 pt-20 text-center sm:pt-32">
-        <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-card/40 px-3 py-1 text-xs text-muted-foreground backdrop-blur">
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+      <Hero />
+      <ExecutionDashboard />
+      <OperatingManual />
+      <ArchitectureVault />
+      <ContactFooter />
+    </div>
+  );
+}
+
+/* ---------------- Floating Nav ---------------- */
+function FloatingNav() {
+  return (
+    <div className="fixed left-1/2 top-4 z-50 -translate-x-1/2 px-4">
+      <nav className="flex items-center gap-1 rounded-full border border-border bg-background/60 px-2 py-1.5 text-xs backdrop-blur-xl sm:gap-2 sm:text-sm">
+        <a href="#hero" className="flex items-center gap-2 rounded-full px-3 py-1.5 font-medium text-foreground transition-colors hover:bg-card">
+          <span className="inline-block h-1.5 w-1.5 rounded-full bg-foreground" />
+          <span className="hidden sm:inline">Index</span>
+        </a>
+        <a href="#dashboard" className="rounded-full px-3 py-1.5 text-muted-foreground transition-colors hover:bg-card hover:text-foreground">
+          Dashboard
+        </a>
+        <a href="#manual" className="rounded-full px-3 py-1.5 text-muted-foreground transition-colors hover:bg-card hover:text-foreground">
+          Manual
+        </a>
+        <a href="#resume" className="rounded-full px-3 py-1.5 text-muted-foreground transition-colors hover:bg-card hover:text-foreground">
+          Resume
+        </a>
+      </nav>
+    </div>
+  );
+}
+
+/* ---------------- Hero ---------------- */
+function Hero() {
+  return (
+    <section
+      id="hero"
+      className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-6 pb-32 pt-32 text-center sm:pt-40"
+    >
+      <div className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-border bg-card/40 px-3.5 py-1.5 text-xs text-muted-foreground backdrop-blur">
+        <span className="relative flex h-1.5 w-1.5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+        </span>
+        <span className="font-medium">Status:</span>
+        <span>Available for High-Impact General Partner Roles</span>
+      </div>
+
+      <h1 className="text-balance bg-gradient-to-b from-white to-[oklch(0.62_0.01_270)] bg-clip-text text-4xl font-semibold leading-[1.05] tracking-[-0.035em] text-transparent sm:text-6xl md:text-7xl">
+        What if your product teams operated purely on high-signal clarity?
+      </h1>
+
+      <p className="mt-8 max-w-2xl text-balance text-base leading-relaxed text-muted-foreground sm:text-lg">
+        I bring a serious obsession to enterprise delivery. I build the structural
+        alignment and high-trust culture needed to ship undeniable user value at
+        record speed.
+      </p>
+
+      <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row">
+        <a href="#dashboard" className="group relative inline-flex h-11 items-center gap-2 overflow-hidden rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground transition-all duration-200 hover:shadow-[0_0_0_1px_oklch(1_0_0/0.6),0_0_28px_-4px_oklch(1_0_0/0.5)]">
+          <span className="relative z-10">View Execution Metrics</span>
+          <svg className="relative z-10 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 8h10M9 4l4 4-4 4" />
+          </svg>
+        </a>
+        <a href="#manual" className="inline-flex h-11 items-center gap-2 rounded-md px-4 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+          Read the Operating Manual
+        </a>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- Execution Dashboard ---------------- */
+function ExecutionDashboard() {
+  return (
+    <section id="dashboard" className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-32 scroll-mt-24">
+      <SectionLabel>Execution Dashboard</SectionLabel>
+
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <DashboardCard tag="Performance Metric" title="AI Production Pipeline" metric={<>15+ GenAI Use Cases <span className="text-subtle">|</span> 100+ Hrs/Wk Automated</>} body="Orchestrating cross-functional engineering squads to rapidly deploy advanced AI capabilities directly into enterprise delivery pipelines." className="md:col-span-2">
+          <PipelineViz />
+        </DashboardCard>
+
+        <DashboardCard tag="Risk Mitigation" title="Enterprise Compliance Architecture" metric="€30M Portfolio Guardrailing" body="Architecting and deploying a unified AI governance infrastructure aligned with the EU AI Act to secure compliant live production deployments.">
+          <ComplianceChecklist />
+        </DashboardCard>
+
+        <DashboardCard tag="Financial Governance" title="Token Economics & ROI" metric="Token Consumption Economics" body="Deep fluency in modeling user session token metrics, context window spend, and routing optimization to ensure cost-efficient scaling without performance loss." className="md:col-span-3">
+          <CostCurve />
+        </DashboardCard>
+      </div>
+    </section>
+  );
+}
+
+function DashboardCard({
+  tag, title, metric, body, children, className = "",
+}: {
+  tag: string; title: string; metric: React.ReactNode; body: string; children?: React.ReactNode; className?: string;
+}) {
+  return (
+    <div className={`group relative flex flex-col rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:border-foreground/20 hover:bg-[oklch(0.22_0.007_270)] ${className}`}>
+      <div className="mb-3 flex items-center gap-2">
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_oklch(0.78_0.18_155)]" />
+        <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-subtle">{tag}</span>
+      </div>
+      <h3 className="mb-4 text-lg font-medium tracking-tight text-muted-foreground">{title}</h3>
+      <div className="mb-5 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">{metric}</div>
+      <p className="mb-6 max-w-xl text-sm leading-relaxed text-muted-foreground">{body}</p>
+      <div className="mt-auto">{children}</div>
+    </div>
+  );
+}
+
+function PipelineViz() {
+  return (
+    <div className="mt-2 overflow-hidden rounded-lg border border-border bg-background/40 p-3">
+      <div className="mb-2 flex items-center justify-between text-[10px] uppercase tracking-widest text-subtle">
+        <span>pipeline.live</span>
+        <span className="text-emerald-400">● streaming</span>
+      </div>
+      <div className="relative h-1.5 overflow-hidden rounded-full bg-[oklch(0.24_0.008_270)]">
+        <div className="absolute inset-y-0 left-0 w-1/3 animate-[pipe_2.4s_linear_infinite] rounded-full bg-gradient-to-r from-transparent via-emerald-400/80 to-transparent" />
+      </div>
+      <div className="mt-3 flex items-center justify-between text-[10px] text-subtle">
+        {["ingest", "embed", "route", "infer", "verify", "ship"].map((s, i) => (
+          <span key={s} className="flex items-center gap-1.5">
+            <span className={`h-1 w-1 rounded-full ${i < 4 ? "bg-emerald-400" : "bg-[oklch(0.35_0.01_270)]"}`} />
+            {s}
           </span>
-          Available for enterprise engagements — Q3
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ComplianceChecklist() {
+  return (
+    <div className="mt-2 space-y-1.5 rounded-lg border border-border bg-background/40 p-3">
+      {["EU AI Act — Tier II", "Data Lineage", "Model Cards", "Audit Trail"].map((item) => (
+        <div key={item} className="flex items-center gap-2 text-xs text-muted-foreground transition-colors group-hover:text-foreground">
+          <svg className="h-3 w-3 text-emerald-400 transition-[filter] duration-300 group-hover:[filter:drop-shadow(0_0_6px_oklch(0.78_0.18_155))]" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 8.5l3 3 7-7" />
+          </svg>
+          {item}
         </div>
+      ))}
+    </div>
+  );
+}
 
-        <h1 className="text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.035em] sm:text-6xl md:text-7xl">
-          What if your product teams operated purely on{" "}
-          <span className="text-muted-foreground">high-signal clarity?</span>
-        </h1>
+function CostCurve() {
+  // Descending curve
+  const points = "0,40 40,38 80,33 120,28 160,22 200,18 240,14 280,11 320,9 360,8";
+  return (
+    <div className="mt-2 overflow-hidden rounded-lg border border-border bg-background/40 p-4">
+      <div className="mb-2 flex items-center justify-between text-[10px] uppercase tracking-widest text-subtle">
+        <span>cost / 1k tokens</span>
+        <span className="text-emerald-400">↓ 62% QoQ</span>
+      </div>
+      <svg viewBox="0 0 360 50" className="h-16 w-full">
+        <defs>
+          <linearGradient id="curveFill" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="oklch(0.78 0.18 155)" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="oklch(0.78 0.18 155)" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <polyline points={`${points} 360,50 0,50`} fill="url(#curveFill)" />
+        <polyline points={points} fill="none" stroke="oklch(0.78 0.18 155)" strokeWidth="1.5" strokeLinejoin="round" />
+        {points.split(" ").map((p) => {
+          const [x, y] = p.split(",");
+          return <circle key={p} cx={x} cy={y} r="1.5" fill="oklch(0.78 0.18 155)" />;
+        })}
+      </svg>
+      <div className="mt-1 flex justify-between text-[10px] text-subtle">
+        <span>Q1</span><span>Q2</span><span>Q3</span><span>Q4</span>
+      </div>
+    </div>
+  );
+}
 
-        <p className="mt-8 max-w-2xl text-balance text-base leading-relaxed text-muted-foreground sm:text-lg">
-          I bring a serious obsession to enterprise delivery. I build the structural
-          alignment and high-trust culture needed to ship undeniable user value at
-          record speed.
-        </p>
+/* ---------------- Operating Manual ---------------- */
+function OperatingManual() {
+  const [open, setOpen] = useState<number | null>(0);
 
-        <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row">
-          <a
-            href="#metrics"
-            className="group inline-flex h-11 items-center gap-2 rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground shadow-[0_1px_0_oklch(1_0_0/0.4)_inset,0_8px_24px_-8px_oklch(1_0_0/0.25)] transition-transform duration-150 hover:-translate-y-0.5"
-          >
-            View Execution Metrics
-            <svg
-              className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
-              viewBox="0 0 16 16"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.75"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M3 8h10M9 4l4 4-4 4" />
-            </svg>
-          </a>
-          <a
-            href="#contact"
-            className="inline-flex h-11 items-center gap-2 rounded-md px-4 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Get in touch
-          </a>
-        </div>
+  const principles = [
+    {
+      title: "Problem Obsession Over Feature Attachment",
+      text: "Our objective is not to release meticulously built features; it is to solve the business problem. When a blocker hits—like an unavailable model—we do not panic. We pivot, explore, and often end up interfacing a more powerful or cost-effective alternative. Let's get to it.",
+      extra: <CrisisFlowchart />,
+    },
+    {
+      title: "High-Trust, Ego-Free Execution",
+      text: "I intentionally build self-aware, transparent engineering squads. We prioritize the right outcome over being the loudest voice in the room. Feedback loops are instant, and we move faster because we do not waste time protecting egos.",
+    },
+    {
+      title: "Long-Range Strategic Instinct",
+      text: "I look past immediate roadmaps to anchor product decisions in long-term enterprise scale. I don't just solve the visible ticket; I architect structural solutions that prevent the next ten friction points.",
+    },
+  ];
 
-        {/* Metrics strip */}
-        <div
-          id="metrics"
-          className="mt-28 grid w-full max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-4"
-        >
-          {[
-            { v: "0.94", l: "Ship velocity index" },
-            { v: "11d", l: "Avg. cycle time" },
-            { v: "8×", l: "Roadmap clarity" },
-            { v: "100%", l: "Trust retention" },
-          ].map((m) => (
-            <div key={m.l} className="bg-background px-5 py-6 text-left">
-              <div className="text-2xl font-semibold tracking-tight">{m.v}</div>
-              <div className="mt-1 text-xs uppercase tracking-wider text-subtle">
-                {m.l}
+  return (
+    <section id="manual" className="relative z-10 mx-auto w-full max-w-4xl px-6 pb-32 scroll-mt-24">
+      <SectionLabel>The Leadership Vault — Operating Principles</SectionLabel>
+
+      <div className="overflow-hidden rounded-2xl border border-border bg-card">
+        {principles.map((p, i) => {
+          const isOpen = open === i;
+          return (
+            <div key={p.title} className={`border-b border-border last:border-b-0 ${isOpen ? "bg-[oklch(0.22_0.007_270)]" : ""}`}>
+              <button
+                onClick={() => setOpen(isOpen ? null : i)}
+                className="flex w-full items-center gap-6 px-6 py-6 text-left transition-colors hover:bg-[oklch(0.22_0.007_270)]"
+              >
+                <span className="text-xs font-mono text-subtle">0{i + 1}</span>
+                <span className="flex-1 text-base font-medium tracking-tight text-foreground sm:text-lg">{p.title}</span>
+                <svg className={`h-4 w-4 shrink-0 text-subtle transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`} viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                  <path d="M8 3v10M3 8h10" />
+                </svg>
+              </button>
+              <div className={`grid transition-all duration-300 ease-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
+                <div className="overflow-hidden">
+                  <div className="px-6 pb-8 pl-[3.75rem] pr-6">
+                    <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">{p.text}</p>
+                    {p.extra ? <div className="mt-6">{p.extra}</div> : null}
+                  </div>
+                </div>
               </div>
             </div>
-          ))}
-        </div>
-      </main>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
 
-      {/* Execution Dashboard */}
-      <section id="work" className="relative z-10 mx-auto w-full max-w-5xl px-6 pb-32">
-        <div className="mb-10 flex items-center gap-3">
-          <div className="h-px flex-1 bg-border" />
-          <span className="text-xs font-medium uppercase tracking-widest text-subtle">
-            Execution Dashboard
+function CrisisFlowchart() {
+  const steps = ["Ruthless Triage", "Map Stakeholder Impact", "Enforce Hackathon Mode", "Deploy Bare Minimum Necessity"];
+  return (
+    <div className="rounded-xl border border-border bg-background/50 p-5">
+      <div className="mb-4 flex items-center justify-between">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-subtle">Crisis Resolution Flowchart</div>
+        <div className="text-[10px] text-subtle">Emotionally Disassociated Triage Framework</div>
+      </div>
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch">
+        {steps.map((s, i) => (
+          <div key={s} className="flex flex-1 items-center gap-2">
+            <div className="flex-1 rounded-lg border border-border bg-card p-3">
+              <div className="text-[10px] text-subtle">Step {i + 1}</div>
+              <div className="mt-1 text-xs font-medium tracking-tight text-foreground">{s}</div>
+            </div>
+            {i < steps.length - 1 && (
+              <svg className="hidden h-4 w-4 shrink-0 text-subtle sm:block" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 8h10M9 4l4 4-4 4" />
+              </svg>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ---------------- Architecture Vault ---------------- */
+function ArchitectureVault() {
+  return (
+    <section id="resume" className="relative z-10 mx-auto w-full max-w-5xl px-6 pb-32 scroll-mt-24">
+      <SectionLabel>Architecture Vault</SectionLabel>
+
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
+        <div className="md:col-span-2">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-subtle">Playbook</div>
+          <h3 className="mt-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">Token Consumption Optimization</h3>
+          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+            A reusable enterprise playbook: balance input/output rate limits, exploit prompt caching, route by complexity, and degrade gracefully under load — without sacrificing premium model quality.
+          </p>
+          <ul className="mt-6 space-y-2 text-sm text-muted-foreground">
+            {["Tiered model routing", "Context window budgeting", "Prompt + KV cache hits", "Speculative decoding"].map((x) => (
+              <li key={x} className="flex items-center gap-2">
+                <span className="h-1 w-1 rounded-full bg-[#a78bfa]" />
+                {x}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="md:col-span-3">
+          <div className="overflow-hidden rounded-2xl border border-border bg-card">
+            <div className="flex items-center gap-2 border-b border-border bg-[oklch(0.18_0.005_270)] px-4 py-2.5">
+              <span className="h-2.5 w-2.5 rounded-full bg-[oklch(0.45_0.02_30)]" />
+              <span className="h-2.5 w-2.5 rounded-full bg-[oklch(0.45_0.02_85)]" />
+              <span className="h-2.5 w-2.5 rounded-full bg-[oklch(0.45_0.05_150)]" />
+              <span className="ml-3 text-xs font-mono text-subtle">token-optimizer.ts</span>
+            </div>
+            <pre className="overflow-x-auto p-5 font-mono text-[12.5px] leading-relaxed text-muted-foreground">
+<code>{`// Tiered routing by signal complexity
+const route = (req: Query) => {
+  if (req.cacheKey && cache.has(req.cacheKey))
+    return models.cached         // ~$0.00 / call
+
+  if (req.complexity < 0.3)
+    return models.haiku          // fast + cheap
+
+  if (req.complexity < 0.7)
+    return models.sonnet         // balanced
+
+  return models.opus             // premium reasoning
+}
+
+// Budget guardrail per session
+const budget = {
+  input:  120_000,   // ctx tokens
+  output:  4_000,    // hard cap
+  ttl:     90 * 60   // seconds
+}`}</code>
+            </pre>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- Contact Footer ---------------- */
+function ContactFooter() {
+  return (
+    <footer id="contact" className="relative z-10 border-t border-border">
+      <div className="mx-auto w-full max-w-6xl px-6 py-20">
+        <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-end">
+          <div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-subtle">Contact</div>
+            <h3 className="mt-3 max-w-xl text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+              Let&apos;s architect undeniable execution.
+            </h3>
+            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
+              <a href="mailto:hello@example.com" className="text-foreground underline-offset-4 transition hover:underline">
+                hello@example.com
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="text-muted-foreground transition-colors hover:text-foreground">
+                LinkedIn ↗
+              </a>
+              <a href="#hero" className="text-muted-foreground transition-colors hover:text-foreground">
+                Back to top
+              </a>
+            </div>
+          </div>
+
+          <a href="#" className="group inline-flex h-11 items-center gap-2 rounded-md border border-border bg-card px-5 text-sm font-medium text-foreground transition-all hover:border-foreground/30 hover:bg-[oklch(0.22_0.007_270)]">
+            <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M8 2v9M4 7l4 4 4-4M2 14h12" />
+            </svg>
+            Download Master Profile JSON/PDF
+          </a>
+        </div>
+
+        <div className="mt-16 flex items-center justify-between text-xs text-subtle">
+          <span>© {new Date().getFullYear()} — All systems operational.</span>
+          <span className="flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            v1.0 · live
           </span>
-          <div className="h-px flex-1 bg-border" />
         </div>
+      </div>
+    </footer>
+  );
+}
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {/* Card 1 */}
-          <div className="group relative rounded-2xl border border-border bg-card p-8 transition-colors hover:border-foreground/20 md:col-span-2">
-            <div className="mb-2 text-xs font-medium uppercase tracking-widest text-subtle">
-              AI Delivery Engine
-            </div>
-            <h3 className="mb-4 text-2xl font-semibold tracking-tight text-foreground">
-              AI Production Pipeline
-            </h3>
-            <div className="mb-6 text-3xl font-semibold tracking-tight text-foreground">
-              15+ GenAI Use Cases <span className="text-subtle">|</span> 100+ Hrs/Wk Automated
-            </div>
-            <p className="max-w-xl text-sm leading-relaxed text-muted-foreground">
-              Orchestrating cross-functional engineering squads to rapidly deploy advanced AI into enterprise delivery pipelines.
-            </p>
-          </div>
-
-          {/* Card 2 */}
-          <div className="group relative rounded-2xl border border-border bg-card p-8 transition-colors hover:border-foreground/20">
-            <div className="mb-2 text-xs font-medium uppercase tracking-widest text-subtle">
-              Enterprise Compliance Architecture
-            </div>
-            <h3 className="mb-4 text-2xl font-semibold tracking-tight text-foreground">
-              EU AI Act Guardrailing
-            </h3>
-            <div className="mb-6 text-3xl font-semibold tracking-tight text-foreground">
-              €30M Portfolio Risk Mitigation
-            </div>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              Architecting and deploying a unified AI governance and compliance infrastructure for live production deployments.
-            </p>
-          </div>
-
-          {/* Card 3 */}
-          <div className="group relative rounded-2xl border border-border bg-card p-8 transition-colors hover:border-foreground/20 md:col-span-3">
-            <div className="mb-2 text-xs font-medium uppercase tracking-widest text-subtle">
-              Token Economics & Governance
-            </div>
-            <h3 className="mb-4 text-2xl font-semibold tracking-tight text-foreground">
-              ROI & Budget Modeling
-            </h3>
-            <div className="mb-6 text-3xl font-semibold tracking-tight text-foreground">
-              Token Consumption Economics
-            </div>
-            <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
-              Deep fluency in LLM token economics and model observability, ensuring scalable, cost-efficient AI deployment without sacrificing premium model performance.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Leadership Vault */}
-      <section id="philosophy" className="relative z-10 mx-auto w-full max-w-5xl px-6 pb-32">
-        <div className="mb-10 flex items-center gap-3">
-          <div className="h-px flex-1 bg-border" />
-          <span className="text-xs font-medium uppercase tracking-widest text-subtle">
-            Operating Manual
-          </span>
-          <div className="h-px flex-1 bg-border" />
-        </div>
-
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {/* Philosophy 1 */}
-          <div className="group rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:border-foreground/20 hover:bg-card/80">
-            <div className="mb-6 flex h-8 w-8 items-center justify-center rounded-full border border-border text-xs font-semibold text-subtle transition-colors group-hover:border-foreground/30 group-hover:text-foreground">
-              01
-            </div>
-            <h3 className="mb-4 text-lg font-semibold tracking-tight text-foreground">
-              Problem Obsession Over Feature Attachment
-            </h3>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              Our objective is not to release meticulously built features; it is to solve the business problem. When a blocker hits—like an unavailable model—we do not panic. We pivot, explore, and often end up interfacing a more powerful or cost-effective alternative. Let&apos;s get to it.
-            </p>
-          </div>
-
-          {/* Philosophy 2 */}
-          <div className="group rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:border-foreground/20 hover:bg-card/80">
-            <div className="mb-6 flex h-8 w-8 items-center justify-center rounded-full border border-border text-xs font-semibold text-subtle transition-colors group-hover:border-foreground/30 group-hover:text-foreground">
-              02
-            </div>
-            <h3 className="mb-4 text-lg font-semibold tracking-tight text-foreground">
-              High-Trust, Ego-Free Execution
-            </h3>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              I intentionally build self-aware, transparent engineering squads. We prioritize the right outcome over being the loudest voice in the room. Feedback loops are instant, and we move faster because we do not waste time protecting egos.
-            </p>
-          </div>
-
-          {/* Philosophy 3 */}
-          <div className="group rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:border-foreground/20 hover:bg-card/80">
-            <div className="mb-6 flex h-8 w-8 items-center justify-center rounded-full border border-border text-xs font-semibold text-subtle transition-colors group-hover:border-foreground/30 group-hover:text-foreground">
-              03
-            </div>
-            <h3 className="mb-4 text-lg font-semibold tracking-tight text-foreground">
-              Long-Range Strategic Instinct
-            </h3>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              I look past immediate roadmaps to anchor product decisions in long-term enterprise scale. I don&apos;t just solve the visible ticket; I architect structural solutions that prevent the next ten friction points.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <footer
-        id="contact"
-        className="relative z-10 mx-auto flex w-full max-w-6xl items-center justify-between border-t border-border px-6 py-6 text-xs text-subtle"
-      >
-        <span>© {new Date().getFullYear()} — All systems operational.</span>
-        <a href="mailto:hello@example.com" className="transition-colors hover:text-foreground">
-          hello@example.com
-        </a>
-      </footer>
+/* ---------------- Shared ---------------- */
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="mb-10 flex items-center gap-3">
+      <div className="h-px flex-1 bg-border" />
+      <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-subtle">{children}</span>
+      <div className="h-px flex-1 bg-border" />
     </div>
   );
 }
