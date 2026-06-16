@@ -111,6 +111,67 @@ function Index() {
         </div>
       </main>
 
+      {/* Execution Dashboard */}
+      <section id="work" className="relative z-10 mx-auto w-full max-w-5xl px-6 pb-32">
+        <div className="mb-10 flex items-center gap-3">
+          <div className="h-px flex-1 bg-border" />
+          <span className="text-xs font-medium uppercase tracking-widest text-subtle">
+            Execution Dashboard
+          </span>
+          <div className="h-px flex-1 bg-border" />
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          {/* Card 1 */}
+          <div className="group relative rounded-2xl border border-border bg-card p-8 transition-colors hover:border-foreground/20 md:col-span-2">
+            <div className="mb-2 text-xs font-medium uppercase tracking-widest text-subtle">
+              AI Delivery Engine
+            </div>
+            <h3 className="mb-4 text-2xl font-semibold tracking-tight text-foreground">
+              AI Production Pipeline
+            </h3>
+            <div className="mb-6 text-3xl font-semibold tracking-tight text-foreground">
+              15+ GenAI Use Cases <span className="text-subtle">|</span> 100+ Hrs/Wk Automated
+            </div>
+            <p className="max-w-xl text-sm leading-relaxed text-muted-foreground">
+              Orchestrating cross-functional engineering squads to rapidly deploy advanced AI into enterprise delivery pipelines.
+            </p>
+          </div>
+
+          {/* Card 2 */}
+          <div className="group relative rounded-2xl border border-border bg-card p-8 transition-colors hover:border-foreground/20">
+            <div className="mb-2 text-xs font-medium uppercase tracking-widest text-subtle">
+              Enterprise Compliance Architecture
+            </div>
+            <h3 className="mb-4 text-2xl font-semibold tracking-tight text-foreground">
+              EU AI Act Guardrailing
+            </h3>
+            <div className="mb-6 text-3xl font-semibold tracking-tight text-foreground">
+              €30M Portfolio Risk Mitigation
+            </div>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              Architecting and deploying a unified AI governance and compliance infrastructure for live production deployments.
+            </p>
+          </div>
+
+          {/* Card 3 */}
+          <div className="group relative rounded-2xl border border-border bg-card p-8 transition-colors hover:border-foreground/20 md:col-span-3">
+            <div className="mb-2 text-xs font-medium uppercase tracking-widest text-subtle">
+              Token Economics & Governance
+            </div>
+            <h3 className="mb-4 text-2xl font-semibold tracking-tight text-foreground">
+              ROI & Budget Modeling
+            </h3>
+            <div className="mb-6 text-3xl font-semibold tracking-tight text-foreground">
+              Token Consumption Economics
+            </div>
+            <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
+              Deep fluency in LLM token economics and model observability, ensuring scalable, cost-efficient AI deployment without sacrificing premium model performance.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <footer
         id="contact"
         className="relative z-10 mx-auto flex w-full max-w-6xl items-center justify-between border-t border-border px-6 py-6 text-xs text-subtle"
