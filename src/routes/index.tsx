@@ -127,15 +127,15 @@ function ExecutionDashboard() {
       <SectionLabel>Execution Dashboard</SectionLabel>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <DashboardCard tag="Performance Metric" title="AI Production Pipeline" metric={<>15+ GenAI Use Cases <span className="text-subtle">|</span> 100+ Hrs/Wk Automated</>} body="Orchestrating cross-functional engineering squads to rapidly deploy advanced AI capabilities directly into enterprise delivery pipelines." className="md:col-span-2">
+        <DashboardCard index={0} tag="Performance Metric" title="AI Production Pipeline" metric={<>15+ GenAI Use Cases <span className="text-subtle">|</span> 100+ Hrs/Wk Automated</>} body="Orchestrating cross-functional engineering squads to rapidly deploy advanced AI capabilities directly into enterprise delivery pipelines." className="md:col-span-2">
           <PipelineViz />
         </DashboardCard>
 
-        <DashboardCard tag="Risk Mitigation" title="Enterprise Compliance Architecture" metric="€30M Portfolio Guardrailing" body="Architecting and deploying a unified AI governance infrastructure aligned with the EU AI Act to secure compliant live production deployments.">
+        <DashboardCard index={1} tag="Risk Mitigation" title="Enterprise Compliance Architecture" metric="€30M Portfolio Guardrailing" body="Architecting and deploying a unified AI governance infrastructure aligned with the EU AI Act to secure compliant live production deployments.">
           <ComplianceChecklist />
         </DashboardCard>
 
-        <DashboardCard tag="Financial Governance" title="Token Economics & ROI" metric="Token Consumption Economics" body="Deep fluency in modeling user session token metrics, context window spend, and routing optimization to ensure cost-efficient scaling without performance loss." className="md:col-span-3">
+        <DashboardCard index={2} tag="Financial Governance" title="Token Economics & ROI" metric="Token Consumption Economics" body="Deep fluency in modeling user session token metrics, context window spend, and routing optimization to ensure cost-efficient scaling without performance loss." className="md:col-span-3">
           <CostCurve />
         </DashboardCard>
       </div>
