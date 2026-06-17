@@ -276,14 +276,23 @@ function OperatingManual() {
                   <path d="M8 3v10M3 8h10" />
                 </svg>
               </button>
-              <div className={`grid transition-all duration-300 ease-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
-                <div className="overflow-hidden">
-                  <div className="px-6 pb-8 pl-[3.75rem] pr-6">
-                    <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">{p.text}</p>
-                    {p.extra ? <div className="mt-6">{p.extra}</div> : null}
-                  </div>
-                </div>
-              </div>
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    key="content"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ type: "spring", stiffness: 220, damping: 28, mass: 0.8 }}
+                    style={{ overflow: "hidden" }}
+                  >
+                    <div className="px-6 pb-8 pl-[3.75rem] pr-6">
+                      <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">{p.text}</p>
+                      {p.extra ? <div className="mt-6">{p.extra}</div> : null}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           );
         })}
