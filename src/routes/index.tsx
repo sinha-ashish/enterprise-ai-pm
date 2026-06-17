@@ -391,8 +391,9 @@ const budget = {
 /* ---------------- Contact Footer ---------------- */
 function ContactFooter() {
   return (
-    <footer id="contact" className="relative z-10 border-t border-border">
-      <div className="mx-auto w-full max-w-6xl px-6 py-20">
+    <footer id="contact" className="relative z-10 overflow-hidden border-t border-border">
+      <div className="pointer-events-none absolute inset-0 footer-mesh" />
+      <div className="relative mx-auto w-full max-w-6xl px-6 py-20">
         <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-end">
           <div>
             <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-subtle">Contact</div>
