@@ -144,12 +144,20 @@ function ExecutionDashboard() {
 }
 
 function DashboardCard({
-  tag, title, metric, body, children, className = "",
+  tag, title, metric, body, children, className = "", index = 0,
 }: {
-  tag: string; title: string; metric: React.ReactNode; body: string; children?: React.ReactNode; className?: string;
+  tag: string; title: string; metric: React.ReactNode; body: string; children?: React.ReactNode; className?: string; index?: number;
 }) {
   return (
-    <div className={`group relative flex flex-col rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:border-foreground/20 hover:bg-[oklch(0.22_0.007_270)] ${className}`}>
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
+      whileHover={{ scale: 1.02 }}
+      style={{ willChange: "transform" }}
+      className={`group relative flex flex-col rounded-2xl border border-border bg-card p-7 transition-colors duration-300 hover:border-foreground/20 hover:bg-[oklch(0.22_0.007_270)] ${className}`}
+    >
       <div className="mb-3 flex items-center gap-2">
         <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_oklch(0.78_0.18_155)]" />
         <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-subtle">{tag}</span>
@@ -158,7 +166,7 @@ function DashboardCard({
       <div className="mb-5 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">{metric}</div>
       <p className="mb-6 max-w-xl text-sm leading-relaxed text-muted-foreground">{body}</p>
       <div className="mt-auto">{children}</div>
-    </div>
+    </motion.div>
   );
 }
 
