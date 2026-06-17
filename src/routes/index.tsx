@@ -68,6 +68,10 @@ function FloatingNav() {
 
 /* ---------------- Hero ---------------- */
 function Hero() {
+  const { scrollY } = useScroll();
+  const headlineY = useTransform(scrollY, [0, 600], [0, -80]);
+  const subY = useTransform(scrollY, [0, 600], [0, -30]);
+
   return (
     <section
       id="hero"
@@ -75,22 +79,31 @@ function Hero() {
     >
       <div className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-border bg-card/40 px-3.5 py-1.5 text-xs text-muted-foreground backdrop-blur">
         <span className="relative flex h-1.5 w-1.5">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+          <span
+            className="absolute inline-flex h-full w-full rounded-full bg-emerald-400"
+            style={{ animation: "status-pulse 2s ease-in-out infinite" }}
+          />
           <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
         </span>
         <span className="font-medium">Status:</span>
         <span>Available for High-Impact General Partner Roles</span>
       </div>
 
-      <h1 className="text-balance bg-gradient-to-b from-white to-[oklch(0.62_0.01_270)] bg-clip-text text-4xl font-semibold leading-[1.05] tracking-[-0.035em] text-transparent sm:text-6xl md:text-7xl">
+      <motion.h1
+        style={{ y: headlineY, willChange: "transform" }}
+        className="text-balance bg-gradient-to-b from-white to-[oklch(0.62_0.01_270)] bg-clip-text text-4xl font-semibold leading-[1.05] tracking-[-0.035em] text-transparent sm:text-6xl md:text-7xl"
+      >
         What if your product teams operated purely on high-signal clarity?
-      </h1>
+      </motion.h1>
 
-      <p className="mt-8 max-w-2xl text-balance text-base leading-relaxed text-muted-foreground sm:text-lg">
+      <motion.p
+        style={{ y: subY, willChange: "transform" }}
+        className="mt-8 max-w-2xl text-balance text-base leading-relaxed text-muted-foreground sm:text-lg"
+      >
         I bring a serious obsession to enterprise delivery. I build the structural
         alignment and high-trust culture needed to ship undeniable user value at
         record speed.
-      </p>
+      </motion.p>
 
       <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row">
         <a href="#dashboard" className="group relative inline-flex h-11 items-center gap-2 overflow-hidden rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground transition-all duration-200 hover:shadow-[0_0_0_1px_oklch(1_0_0/0.6),0_0_28px_-4px_oklch(1_0_0/0.5)]">
