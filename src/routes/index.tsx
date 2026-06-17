@@ -35,6 +35,7 @@ function Index() {
 
       <Hero />
       <ExecutionDashboard />
+      <OperatorsInstinct />
       <OperatingManual />
       <ArchitectureVault />
       <ContactFooter />
