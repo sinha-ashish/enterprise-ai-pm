@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
+import { OperatorsInstinct } from "@/components/OperatorsInstinct";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -33,6 +35,7 @@ function Index() {
 
       <Hero />
       <ExecutionDashboard />
+      <OperatorsInstinct />
       <OperatingManual />
       <ArchitectureVault />
       <ContactFooter />
@@ -65,6 +68,10 @@ function FloatingNav() {
 
 /* ---------------- Hero ---------------- */
 function Hero() {
+  const { scrollY } = useScroll();
+  const headlineY = useTransform(scrollY, [0, 600], [0, -80]);
+  const subY = useTransform(scrollY, [0, 600], [0, -30]);
+
   return (
     <section
       id="hero"
@@ -72,22 +79,31 @@ function Hero() {
     >
       <div className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-border bg-card/40 px-3.5 py-1.5 text-xs text-muted-foreground backdrop-blur">
         <span className="relative flex h-1.5 w-1.5">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+          <span
+            className="absolute inline-flex h-full w-full rounded-full bg-emerald-400"
+            style={{ animation: "status-pulse 2s ease-in-out infinite" }}
+          />
           <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
         </span>
         <span className="font-medium">Status:</span>
         <span>Available for High-Impact General Partner Roles</span>
       </div>
 
-      <h1 className="text-balance bg-gradient-to-b from-white to-[oklch(0.62_0.01_270)] bg-clip-text text-4xl font-semibold leading-[1.05] tracking-[-0.035em] text-transparent sm:text-6xl md:text-7xl">
+      <motion.h1
+        style={{ y: headlineY, willChange: "transform" }}
+        className="text-balance bg-gradient-to-b from-white to-[oklch(0.62_0.01_270)] bg-clip-text text-4xl font-semibold leading-[1.05] tracking-[-0.035em] text-transparent sm:text-6xl md:text-7xl"
+      >
         What if your product teams operated purely on high-signal clarity?
-      </h1>
+      </motion.h1>
 
-      <p className="mt-8 max-w-2xl text-balance text-base leading-relaxed text-muted-foreground sm:text-lg">
+      <motion.p
+        style={{ y: subY, willChange: "transform" }}
+        className="mt-8 max-w-2xl text-balance text-base leading-relaxed text-muted-foreground sm:text-lg"
+      >
         I bring a serious obsession to enterprise delivery. I build the structural
         alignment and high-trust culture needed to ship undeniable user value at
         record speed.
-      </p>
+      </motion.p>
 
       <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row">
         <a href="#dashboard" className="group relative inline-flex h-11 items-center gap-2 overflow-hidden rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground transition-all duration-200 hover:shadow-[0_0_0_1px_oklch(1_0_0/0.6),0_0_28px_-4px_oklch(1_0_0/0.5)]">
@@ -111,15 +127,15 @@ function ExecutionDashboard() {
       <SectionLabel>Execution Dashboard</SectionLabel>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <DashboardCard tag="Performance Metric" title="AI Production Pipeline" metric={<>15+ GenAI Use Cases <span className="text-subtle">|</span> 100+ Hrs/Wk Automated</>} body="Orchestrating cross-functional engineering squads to rapidly deploy advanced AI capabilities directly into enterprise delivery pipelines." className="md:col-span-2">
+        <DashboardCard index={0} tag="Performance Metric" title="AI Production Pipeline" metric={<>15+ GenAI Use Cases <span className="text-subtle">|</span> 100+ Hrs/Wk Automated</>} body="Orchestrating cross-functional engineering squads to rapidly deploy advanced AI capabilities directly into enterprise delivery pipelines." className="md:col-span-2">
           <PipelineViz />
         </DashboardCard>
 
-        <DashboardCard tag="Risk Mitigation" title="Enterprise Compliance Architecture" metric="€30M Portfolio Guardrailing" body="Architecting and deploying a unified AI governance infrastructure aligned with the EU AI Act to secure compliant live production deployments.">
+        <DashboardCard index={1} tag="Risk Mitigation" title="Enterprise Compliance Architecture" metric="€30M Portfolio Guardrailing" body="Architecting and deploying a unified AI governance infrastructure aligned with the EU AI Act to secure compliant live production deployments.">
           <ComplianceChecklist />
         </DashboardCard>
 
-        <DashboardCard tag="Financial Governance" title="Token Economics & ROI" metric="Token Consumption Economics" body="Deep fluency in modeling user session token metrics, context window spend, and routing optimization to ensure cost-efficient scaling without performance loss." className="md:col-span-3">
+        <DashboardCard index={2} tag="Financial Governance" title="Token Economics & ROI" metric="Token Consumption Economics" body="Deep fluency in modeling user session token metrics, context window spend, and routing optimization to ensure cost-efficient scaling without performance loss." className="md:col-span-3">
           <CostCurve />
         </DashboardCard>
       </div>
@@ -128,12 +144,20 @@ function ExecutionDashboard() {
 }
 
 function DashboardCard({
-  tag, title, metric, body, children, className = "",
+  tag, title, metric, body, children, className = "", index = 0,
 }: {
-  tag: string; title: string; metric: React.ReactNode; body: string; children?: React.ReactNode; className?: string;
+  tag: string; title: string; metric: React.ReactNode; body: string; children?: React.ReactNode; className?: string; index?: number;
 }) {
   return (
-    <div className={`group relative flex flex-col rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:border-foreground/20 hover:bg-[oklch(0.22_0.007_270)] ${className}`}>
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
+      whileHover={{ scale: 1.02 }}
+      style={{ willChange: "transform" }}
+      className={`group relative flex flex-col rounded-2xl border border-border bg-card p-7 transition-colors duration-300 hover:border-foreground/20 hover:bg-[oklch(0.22_0.007_270)] ${className}`}
+    >
       <div className="mb-3 flex items-center gap-2">
         <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_oklch(0.78_0.18_155)]" />
         <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-subtle">{tag}</span>
@@ -142,7 +166,7 @@ function DashboardCard({
       <div className="mb-5 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">{metric}</div>
       <p className="mb-6 max-w-xl text-sm leading-relaxed text-muted-foreground">{body}</p>
       <div className="mt-auto">{children}</div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -252,14 +276,23 @@ function OperatingManual() {
                   <path d="M8 3v10M3 8h10" />
                 </svg>
               </button>
-              <div className={`grid transition-all duration-300 ease-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
-                <div className="overflow-hidden">
-                  <div className="px-6 pb-8 pl-[3.75rem] pr-6">
-                    <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">{p.text}</p>
-                    {p.extra ? <div className="mt-6">{p.extra}</div> : null}
-                  </div>
-                </div>
-              </div>
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    key="content"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ type: "spring", stiffness: 220, damping: 28, mass: 0.8 }}
+                    style={{ overflow: "hidden" }}
+                  >
+                    <div className="px-6 pb-8 pl-[3.75rem] pr-6">
+                      <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">{p.text}</p>
+                      {p.extra ? <div className="mt-6">{p.extra}</div> : null}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           );
         })}
@@ -358,8 +391,9 @@ const budget = {
 /* ---------------- Contact Footer ---------------- */
 function ContactFooter() {
   return (
-    <footer id="contact" className="relative z-10 border-t border-border">
-      <div className="mx-auto w-full max-w-6xl px-6 py-20">
+    <footer id="contact" className="relative z-10 overflow-hidden border-t border-border">
+      <div className="pointer-events-none absolute inset-0 footer-mesh" />
+      <div className="relative mx-auto w-full max-w-6xl px-6 py-20">
         <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-end">
           <div>
             <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-subtle">Contact</div>
