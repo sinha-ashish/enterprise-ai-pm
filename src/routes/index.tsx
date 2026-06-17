@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
+import { OperatorsInstinct } from "@/components/OperatorsInstinct";
 
 export const Route = createFileRoute("/")({
   head: () => ({
