@@ -179,23 +179,60 @@ function DashboardCard({
   );
 }
 
-function PipelineViz() {
+function AdoptionViz() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.4 });
+  const reduce = useReducedMotion();
+  const count = useMotionValue(0);
+  const [display, setDisplay] = useState(0);
+  const [barFilled, setBarFilled] = useState(false);
+
+  useEffect(() => {
+    const unsub = count.on("change", (v) => setDisplay(Math.round(v)));
+    return () => unsub();
+  }, [count]);
+
+  useEffect(() => {
+    if (!inView) return;
+    if (reduce) {
+      setDisplay(150);
+      setBarFilled(true);
+      return;
+    }
+    const controls = motionAnimate(count, 150, { duration: 1.6, ease: [0.16, 1, 0.3, 1] });
+    const t = setTimeout(() => setBarFilled(true), 60);
+    return () => {
+      controls.stop();
+      clearTimeout(t);
+    };
+  }, [inView, reduce, count]);
+
   return (
-    <div className="mt-2 overflow-hidden rounded-lg border border-border bg-background/40 p-3">
-      <div className="mb-2 flex items-center justify-between text-[10px] uppercase tracking-widest text-subtle">
-        <span>pipeline.live</span>
-        <span className="text-emerald-400">● streaming</span>
+    <div ref={ref} className="mt-2 rounded-lg border border-border bg-background/40 p-5">
+      <div className="flex items-baseline justify-between gap-4">
+        <div>
+          <div className="text-[10px] uppercase tracking-widest text-subtle">Institutional partners</div>
+          <div className="mt-1 font-mono text-4xl font-semibold tracking-tight text-foreground tabular-nums sm:text-5xl">
+            {display}
+            <span className="text-emerald-400">+</span>
+          </div>
+        </div>
+        <div className="text-right">
+          <div className="text-[10px] uppercase tracking-widest text-subtle">CSAT</div>
+          <div className="mt-1 font-mono text-2xl font-semibold tracking-tight text-foreground tabular-nums sm:text-3xl">87%</div>
+        </div>
       </div>
-      <div className="relative h-1.5 overflow-hidden rounded-full bg-[oklch(0.24_0.008_270)]">
-        <div className="absolute inset-y-0 left-0 w-1/3 animate-[pipe_2.4s_linear_infinite] rounded-full bg-gradient-to-r from-transparent via-emerald-400/80 to-transparent" />
-      </div>
-      <div className="mt-3 flex items-center justify-between text-[10px] text-subtle">
-        {["ingest", "embed", "route", "infer", "verify", "ship"].map((s, i) => (
-          <span key={s} className="flex items-center gap-1.5">
-            <span className={`h-1 w-1 rounded-full ${i < 4 ? "bg-emerald-400" : "bg-[oklch(0.35_0.01_270)]"}`} />
-            {s}
-          </span>
-        ))}
+      <div className="mt-5">
+        <div className="relative h-1.5 overflow-hidden rounded-full bg-[oklch(0.24_0.008_270)]">
+          <div
+            className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-emerald-400/80 to-emerald-400 transition-[width] duration-[1400ms] ease-out"
+            style={{ width: barFilled ? "55%" : "0%" }}
+          />
+        </div>
+        <div className="mt-2 flex items-center justify-between text-[10px] uppercase tracking-widest text-subtle">
+          <span>55% adoption growth · 6mo</span>
+          <span>0 → 150 partners</span>
+        </div>
       </div>
     </div>
   );
