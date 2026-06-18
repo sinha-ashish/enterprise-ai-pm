@@ -138,8 +138,8 @@ function ExecutionDashboard() {
     <section id="dashboard" className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-32 scroll-mt-24">
       <SectionLabel>Execution Dashboard</SectionLabel>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <DashboardCard index={0} tag="Performance Metric" title="AI Production Pipeline" metric={<>15+ GenAI Use Cases <span className="text-subtle">|</span> 100+ Hrs/Wk Automated</>} body="Orchestrating cross-functional engineering squads to rapidly deploy advanced AI capabilities directly into enterprise delivery pipelines." className="md:col-span-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <DashboardCard index={0} tag="Performance Metric" title="AI Production Pipeline" metric={<>15+ GenAI Use Cases <span className="text-subtle">|</span> 100+ Hrs/Wk Automated</>} body="Orchestrating cross-functional engineering squads to rapidly deploy advanced AI capabilities directly into enterprise delivery pipelines.">
           <div aria-hidden className="h-16" />
         </DashboardCard>
 
@@ -147,8 +147,12 @@ function ExecutionDashboard() {
           <ComplianceChecklist />
         </DashboardCard>
 
-        <DashboardCard index={2} tag="Growth & Adoption" title="Platform Scale & Adoption" metric={<>150+ Institutional Partners <span className="text-subtle">|</span> 87% CSAT</>} body="Architected the 0-to-1 product strategy and go-to-market for an EU-funded deep tech learning platform — scaling institutional adoption from zero to a 150+ partner network across Europe, and driving 55% growth in active adoption within 6 months." className="md:col-span-3">
+        <DashboardCard index={2} tag="Growth & Adoption" title="Platform Scale & Adoption" metric={<>150+ Institutional Partners <span className="text-subtle">|</span> 87% CSAT</>} body="Architected the 0-to-1 product strategy and go-to-market for an EU-funded deep tech learning platform — scaling institutional adoption from zero to a 150+ partner network across Europe, and driving 55% growth in active adoption within 6 months.">
           <AdoptionViz />
+        </DashboardCard>
+
+        <DashboardCard index={3} tag="Agile Velocity" title="Agile Delivery & Speed" metric="80/40 Delivery Rule" body="Architecting high-velocity deployment frameworks that push stable, high-signal iterations to staging environments rapidly — collapsing traditional 3-week enterprise roadmaps to under 2 weeks by moving feedback loops earlier, not by cutting corners.">
+          <VelocityBar />
         </DashboardCard>
       </div>
     </section>
