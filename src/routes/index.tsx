@@ -253,31 +253,52 @@ function ComplianceChecklist() {
   );
 }
 
-function CostCurve() {
-  // Descending curve
-  const points = "0,40 40,38 80,33 120,28 160,22 200,18 240,14 280,11 320,9 360,8";
+function TokenTierVisual() {
+  const reduce = useReducedMotion();
+  const tiers = [
+    {
+      label: "Tier 1 — Internal Productivity",
+      sub: "lightweight · ROI-tracked",
+      width: "62%",
+      barClass: "h-2 bg-[oklch(0.78_0.18_155)]/70",
+    },
+    {
+      label: "Tier 2 — High-Risk / Confidential",
+      sub: "enterprise cloud · hard-encrypted",
+      width: "92%",
+      barClass: "h-3 bg-emerald-400 ring-1 ring-inset ring-emerald-300/60 shadow-[0_0_18px_-4px_oklch(0.78_0.18_155)]",
+    },
+    {
+      label: "Tier 3 — Lightweight Operations",
+      sub: "fast-tracked admin workflows",
+      width: "38%",
+      barClass: "h-1 bg-[oklch(0.78_0.18_155)]/45",
+    },
+  ];
   return (
-    <div className="mt-2 overflow-hidden rounded-lg border border-border bg-background/40 p-4">
-      <div className="mb-2 flex items-center justify-between text-[10px] uppercase tracking-widest text-subtle">
-        <span>cost / 1k tokens</span>
-        <span className="text-emerald-400">↓ 62% QoQ</span>
+    <div className="rounded-xl border border-border bg-background/50 p-5">
+      <div className="mb-4 flex items-center justify-between">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-subtle">Multi-Model Routing Tiers</div>
+        <div className="text-[10px] text-subtle">Right-sized infrastructure for right-sized risk</div>
       </div>
-      <svg viewBox="0 0 360 50" className="h-16 w-full">
-        <defs>
-          <linearGradient id="curveFill" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="oklch(0.78 0.18 155)" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="oklch(0.78 0.18 155)" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        <polyline points={`${points} 360,50 0,50`} fill="url(#curveFill)" />
-        <polyline points={points} fill="none" stroke="oklch(0.78 0.18 155)" strokeWidth="1.5" strokeLinejoin="round" />
-        {points.split(" ").map((p) => {
-          const [x, y] = p.split(",");
-          return <circle key={p} cx={x} cy={y} r="1.5" fill="oklch(0.78 0.18 155)" />;
-        })}
-      </svg>
-      <div className="mt-1 flex justify-between text-[10px] text-subtle">
-        <span>Q1</span><span>Q2</span><span>Q3</span><span>Q4</span>
+      <div className="space-y-4">
+        {tiers.map((t, i) => (
+          <div key={t.label}>
+            <div className="mb-1.5 flex items-baseline justify-between gap-3">
+              <span className="text-xs font-medium tracking-tight text-foreground">{t.label}</span>
+              <span className="text-[10px] uppercase tracking-widest text-subtle">{t.sub}</span>
+            </div>
+            <div className="relative overflow-hidden rounded-full bg-[oklch(0.22_0.007_270)]">
+              <motion.div
+                initial={reduce ? { scaleX: 1 } : { scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 0.7, delay: reduce ? 0 : 0.08 * i, ease: [0.16, 1, 0.3, 1] }}
+                style={{ originX: 0, width: t.width }}
+                className={`rounded-full ${t.barClass}`}
+              />
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
