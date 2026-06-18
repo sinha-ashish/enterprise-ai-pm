@@ -321,6 +321,7 @@ function OperatingManual() {
     {
       title: "Long-Range Strategic Instinct",
       text: "I look past immediate roadmaps to anchor product decisions in long-term enterprise scale. I don't just solve the visible ticket; I architect structural solutions that prevent the next ten friction points.",
+    },
     {
       title: "Model & Token Fluency",
       text: "I model user session token metrics, context window spend, and routing optimization to scale AI capability without sacrificing performance or cost discipline. This goes beyond budgeting — it means real fluency across model tiers and multi-model routing, knowing when a lightweight model is the right call versus when a task genuinely needs frontier-level reasoning. Hard limits on usage exist, but they're reserved for the rare, extravagant use case — not the default constraint most teams over-apply. In practice, that means I've built strong instincts for recommending the right setup for the business problem in front of me, grounded in product thinking first rather than chasing the newest model for its own sake. That instinct comes from comprehensive use-case prototyping over time — testing real scenarios against real model capabilities until the trade-offs become intuitive, not theoretical.",
