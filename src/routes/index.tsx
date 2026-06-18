@@ -98,7 +98,7 @@ function Hero() {
           <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
         </span>
         <span className="font-medium">Status:</span>
-        <span>Available for High-Impact General Partner Roles</span>
+        <span>Currently shipping. Open to what&apos;s next.</span>
       </div>
 
       <motion.h1
