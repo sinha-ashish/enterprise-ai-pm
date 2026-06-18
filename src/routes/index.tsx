@@ -137,15 +137,15 @@ function ExecutionDashboard() {
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <DashboardCard index={0} tag="Performance Metric" title="AI Production Pipeline" metric={<>15+ GenAI Use Cases <span className="text-subtle">|</span> 100+ Hrs/Wk Automated</>} body="Orchestrating cross-functional engineering squads to rapidly deploy advanced AI capabilities directly into enterprise delivery pipelines." className="md:col-span-2">
-          <PipelineViz />
+          <div aria-hidden className="h-16" />
         </DashboardCard>
 
         <DashboardCard index={1} tag="Risk Mitigation" title="Enterprise Compliance Architecture" metric="€30M Portfolio Guardrailing" body="Architecting and deploying a unified AI governance infrastructure aligned with the EU AI Act to secure compliant live production deployments.">
           <ComplianceChecklist />
         </DashboardCard>
 
-        <DashboardCard index={2} tag="Financial Governance" title="Token Economics & ROI" metric="Token Consumption Economics" body="Deep fluency in modeling user session token metrics, context window spend, and routing optimization to ensure cost-efficient scaling without performance loss." className="md:col-span-3">
-          <CostCurve />
+        <DashboardCard index={2} tag="Growth & Adoption" title="Platform Scale & Adoption" metric={<>150+ Institutional Partners <span className="text-subtle">|</span> 87% CSAT</>} body="Architected the 0-to-1 product strategy and go-to-market for an EU-funded deep tech learning platform — scaling institutional adoption from zero to a 150+ partner network across Europe, and driving 55% growth in active adoption within 6 months." className="md:col-span-3">
+          <AdoptionViz />
         </DashboardCard>
       </div>
     </section>
