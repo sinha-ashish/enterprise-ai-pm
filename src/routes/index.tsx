@@ -1,6 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+  useInView,
+  useMotionValue,
+  useReducedMotion,
+  animate as motionAnimate,
+} from "motion/react";
 import { OperatorsInstinct } from "@/components/OperatorsInstinct";
 
 export const Route = createFileRoute("/")({
@@ -128,15 +137,15 @@ function ExecutionDashboard() {
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <DashboardCard index={0} tag="Performance Metric" title="AI Production Pipeline" metric={<>15+ GenAI Use Cases <span className="text-subtle">|</span> 100+ Hrs/Wk Automated</>} body="Orchestrating cross-functional engineering squads to rapidly deploy advanced AI capabilities directly into enterprise delivery pipelines." className="md:col-span-2">
-          <PipelineViz />
+          <div aria-hidden className="h-16" />
         </DashboardCard>
 
         <DashboardCard index={1} tag="Risk Mitigation" title="Enterprise Compliance Architecture" metric="€30M Portfolio Guardrailing" body="Architecting and deploying a unified AI governance infrastructure aligned with the EU AI Act to secure compliant live production deployments.">
           <ComplianceChecklist />
         </DashboardCard>
 
-        <DashboardCard index={2} tag="Financial Governance" title="Token Economics & ROI" metric="Token Consumption Economics" body="Deep fluency in modeling user session token metrics, context window spend, and routing optimization to ensure cost-efficient scaling without performance loss." className="md:col-span-3">
-          <CostCurve />
+        <DashboardCard index={2} tag="Growth & Adoption" title="Platform Scale & Adoption" metric={<>150+ Institutional Partners <span className="text-subtle">|</span> 87% CSAT</>} body="Architected the 0-to-1 product strategy and go-to-market for an EU-funded deep tech learning platform — scaling institutional adoption from zero to a 150+ partner network across Europe, and driving 55% growth in active adoption within 6 months." className="md:col-span-3">
+          <AdoptionViz />
         </DashboardCard>
       </div>
     </section>
@@ -170,23 +179,60 @@ function DashboardCard({
   );
 }
 
-function PipelineViz() {
+function AdoptionViz() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.4 });
+  const reduce = useReducedMotion();
+  const count = useMotionValue(0);
+  const [display, setDisplay] = useState(0);
+  const [barFilled, setBarFilled] = useState(false);
+
+  useEffect(() => {
+    const unsub = count.on("change", (v) => setDisplay(Math.round(v)));
+    return () => unsub();
+  }, [count]);
+
+  useEffect(() => {
+    if (!inView) return;
+    if (reduce) {
+      setDisplay(150);
+      setBarFilled(true);
+      return;
+    }
+    const controls = motionAnimate(count, 150, { duration: 1.6, ease: [0.16, 1, 0.3, 1] });
+    const t = setTimeout(() => setBarFilled(true), 60);
+    return () => {
+      controls.stop();
+      clearTimeout(t);
+    };
+  }, [inView, reduce, count]);
+
   return (
-    <div className="mt-2 overflow-hidden rounded-lg border border-border bg-background/40 p-3">
-      <div className="mb-2 flex items-center justify-between text-[10px] uppercase tracking-widest text-subtle">
-        <span>pipeline.live</span>
-        <span className="text-emerald-400">● streaming</span>
+    <div ref={ref} className="mt-2 rounded-lg border border-border bg-background/40 p-5">
+      <div className="flex items-baseline justify-between gap-4">
+        <div>
+          <div className="text-[10px] uppercase tracking-widest text-subtle">Institutional partners</div>
+          <div className="mt-1 font-mono text-4xl font-semibold tracking-tight text-foreground tabular-nums sm:text-5xl">
+            {display}
+            <span className="text-emerald-400">+</span>
+          </div>
+        </div>
+        <div className="text-right">
+          <div className="text-[10px] uppercase tracking-widest text-subtle">CSAT</div>
+          <div className="mt-1 font-mono text-2xl font-semibold tracking-tight text-foreground tabular-nums sm:text-3xl">87%</div>
+        </div>
       </div>
-      <div className="relative h-1.5 overflow-hidden rounded-full bg-[oklch(0.24_0.008_270)]">
-        <div className="absolute inset-y-0 left-0 w-1/3 animate-[pipe_2.4s_linear_infinite] rounded-full bg-gradient-to-r from-transparent via-emerald-400/80 to-transparent" />
-      </div>
-      <div className="mt-3 flex items-center justify-between text-[10px] text-subtle">
-        {["ingest", "embed", "route", "infer", "verify", "ship"].map((s, i) => (
-          <span key={s} className="flex items-center gap-1.5">
-            <span className={`h-1 w-1 rounded-full ${i < 4 ? "bg-emerald-400" : "bg-[oklch(0.35_0.01_270)]"}`} />
-            {s}
-          </span>
-        ))}
+      <div className="mt-5">
+        <div className="relative h-1.5 overflow-hidden rounded-full bg-[oklch(0.24_0.008_270)]">
+          <div
+            className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-emerald-400/80 to-emerald-400 transition-[width] duration-[1400ms] ease-out"
+            style={{ width: barFilled ? "55%" : "0%" }}
+          />
+        </div>
+        <div className="mt-2 flex items-center justify-between text-[10px] uppercase tracking-widest text-subtle">
+          <span>55% adoption growth · 6mo</span>
+          <span>0 → 150 partners</span>
+        </div>
       </div>
     </div>
   );
@@ -207,31 +253,52 @@ function ComplianceChecklist() {
   );
 }
 
-function CostCurve() {
-  // Descending curve
-  const points = "0,40 40,38 80,33 120,28 160,22 200,18 240,14 280,11 320,9 360,8";
+function TokenTierVisual() {
+  const reduce = useReducedMotion();
+  const tiers = [
+    {
+      label: "Tier 1 — Internal Productivity",
+      sub: "lightweight · ROI-tracked",
+      width: "62%",
+      barClass: "h-2 bg-[oklch(0.78_0.18_155)]/70",
+    },
+    {
+      label: "Tier 2 — High-Risk / Confidential",
+      sub: "enterprise cloud · hard-encrypted",
+      width: "92%",
+      barClass: "h-3 bg-emerald-400 ring-1 ring-inset ring-emerald-300/60 shadow-[0_0_18px_-4px_oklch(0.78_0.18_155)]",
+    },
+    {
+      label: "Tier 3 — Lightweight Operations",
+      sub: "fast-tracked admin workflows",
+      width: "38%",
+      barClass: "h-1 bg-[oklch(0.78_0.18_155)]/45",
+    },
+  ];
   return (
-    <div className="mt-2 overflow-hidden rounded-lg border border-border bg-background/40 p-4">
-      <div className="mb-2 flex items-center justify-between text-[10px] uppercase tracking-widest text-subtle">
-        <span>cost / 1k tokens</span>
-        <span className="text-emerald-400">↓ 62% QoQ</span>
+    <div className="rounded-xl border border-border bg-background/50 p-5">
+      <div className="mb-4 flex items-center justify-between">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-subtle">Multi-Model Routing Tiers</div>
+        <div className="text-[10px] text-subtle">Right-sized infrastructure for right-sized risk</div>
       </div>
-      <svg viewBox="0 0 360 50" className="h-16 w-full">
-        <defs>
-          <linearGradient id="curveFill" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="oklch(0.78 0.18 155)" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="oklch(0.78 0.18 155)" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        <polyline points={`${points} 360,50 0,50`} fill="url(#curveFill)" />
-        <polyline points={points} fill="none" stroke="oklch(0.78 0.18 155)" strokeWidth="1.5" strokeLinejoin="round" />
-        {points.split(" ").map((p) => {
-          const [x, y] = p.split(",");
-          return <circle key={p} cx={x} cy={y} r="1.5" fill="oklch(0.78 0.18 155)" />;
-        })}
-      </svg>
-      <div className="mt-1 flex justify-between text-[10px] text-subtle">
-        <span>Q1</span><span>Q2</span><span>Q3</span><span>Q4</span>
+      <div className="space-y-4">
+        {tiers.map((t, i) => (
+          <div key={t.label}>
+            <div className="mb-1.5 flex items-baseline justify-between gap-3">
+              <span className="text-xs font-medium tracking-tight text-foreground">{t.label}</span>
+              <span className="text-[10px] uppercase tracking-widest text-subtle">{t.sub}</span>
+            </div>
+            <div className="relative overflow-hidden rounded-full bg-[oklch(0.22_0.007_270)]">
+              <motion.div
+                initial={reduce ? { scaleX: 1 } : { scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 0.7, delay: reduce ? 0 : 0.08 * i, ease: [0.16, 1, 0.3, 1] }}
+                style={{ originX: 0, width: t.width }}
+                className={`rounded-full ${t.barClass}`}
+              />
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -254,6 +321,11 @@ function OperatingManual() {
     {
       title: "Long-Range Strategic Instinct",
       text: "I look past immediate roadmaps to anchor product decisions in long-term enterprise scale. I don't just solve the visible ticket; I architect structural solutions that prevent the next ten friction points.",
+    },
+    {
+      title: "Model & Token Fluency",
+      text: "I model user session token metrics, context window spend, and routing optimization to scale AI capability without sacrificing performance or cost discipline. This goes beyond budgeting — it means real fluency across model tiers and multi-model routing, knowing when a lightweight model is the right call versus when a task genuinely needs frontier-level reasoning. Hard limits on usage exist, but they're reserved for the rare, extravagant use case — not the default constraint most teams over-apply. In practice, that means I've built strong instincts for recommending the right setup for the business problem in front of me, grounded in product thinking first rather than chasing the newest model for its own sake. That instinct comes from comprehensive use-case prototyping over time — testing real scenarios against real model capabilities until the trade-offs become intuitive, not theoretical.",
+      extra: <TokenTierVisual />,
     },
   ];
 
