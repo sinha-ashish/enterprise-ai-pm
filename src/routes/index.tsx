@@ -47,6 +47,7 @@ function Index() {
       <OperatorsInstinct />
       <OperatingManual />
       <ArchitectureVault />
+      <Writing />
       <ContactFooter />
     </div>
   );
@@ -66,6 +67,9 @@ function FloatingNav() {
         </a>
         <a href="#manual" className="rounded-full px-3 py-1.5 text-muted-foreground transition-colors hover:bg-card hover:text-foreground">
           Manual
+        </a>
+        <a href="#writing" className="rounded-full px-3 py-1.5 text-muted-foreground transition-colors hover:bg-card hover:text-foreground">
+          Writing
         </a>
         <a href="#resume" className="rounded-full px-3 py-1.5 text-muted-foreground transition-colors hover:bg-card hover:text-foreground">
           Resume
@@ -95,7 +99,7 @@ function Hero() {
           <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
         </span>
         <span className="font-medium">Status:</span>
-        <span>Available for High-Impact General Partner Roles</span>
+        <span>Currently shipping. Open to what&apos;s next.</span>
       </div>
 
       <motion.h1
@@ -135,8 +139,8 @@ function ExecutionDashboard() {
     <section id="dashboard" className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-32 scroll-mt-24">
       <SectionLabel>Execution Dashboard</SectionLabel>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <DashboardCard index={0} tag="Performance Metric" title="AI Production Pipeline" metric={<>15+ GenAI Use Cases <span className="text-subtle">|</span> 100+ Hrs/Wk Automated</>} body="Orchestrating cross-functional engineering squads to rapidly deploy advanced AI capabilities directly into enterprise delivery pipelines." className="md:col-span-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <DashboardCard index={0} tag="Performance Metric" title="AI Production Pipeline" metric={<>15+ GenAI Use Cases <span className="text-subtle">|</span> 100+ Hrs/Wk Automated</>} body="Orchestrating cross-functional engineering squads to rapidly deploy advanced AI capabilities directly into enterprise delivery pipelines.">
           <div aria-hidden className="h-16" />
         </DashboardCard>
 
@@ -144,8 +148,12 @@ function ExecutionDashboard() {
           <ComplianceChecklist />
         </DashboardCard>
 
-        <DashboardCard index={2} tag="Growth & Adoption" title="Platform Scale & Adoption" metric={<>150+ Institutional Partners <span className="text-subtle">|</span> 87% CSAT</>} body="Architected the 0-to-1 product strategy and go-to-market for an EU-funded deep tech learning platform — scaling institutional adoption from zero to a 150+ partner network across Europe, and driving 55% growth in active adoption within 6 months." className="md:col-span-3">
+        <DashboardCard index={2} tag="Growth & Adoption" title="Platform Scale & Adoption" metric={<>150+ Institutional Partners <span className="text-subtle">|</span> 87% CSAT</>} body="Architected the 0-to-1 product strategy and go-to-market for an EU-funded deep tech learning platform — scaling institutional adoption from zero to a 150+ partner network across Europe, and driving 55% growth in active adoption within 6 months.">
           <AdoptionViz />
+        </DashboardCard>
+
+        <DashboardCard index={3} tag="Agile Velocity" title="Agile Delivery & Speed" metric="80/40 Delivery Rule" body="Architecting high-velocity deployment frameworks that push stable, high-signal iterations to staging environments rapidly — collapsing traditional 3-week enterprise roadmaps to under 2 weeks by moving feedback loops earlier, not by cutting corners.">
+          <VelocityBar />
         </DashboardCard>
       </div>
     </section>
@@ -400,61 +408,205 @@ function CrisisFlowchart() {
   );
 }
 
+function VelocityBar() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.4 });
+  const reduce = useReducedMotion();
+  const [filled, setFilled] = useState(false);
+
+  useEffect(() => {
+    if (!inView) return;
+    if (reduce) {
+      setFilled(true);
+      return;
+    }
+    const t = setTimeout(() => setFilled(true), 40);
+    return () => clearTimeout(t);
+  }, [inView, reduce]);
+
+  return (
+    <div ref={ref} className="mt-2 rounded-lg border border-border bg-background/40 p-5">
+      <div className="mb-3 flex items-baseline justify-between">
+        <div className="text-[10px] uppercase tracking-widest text-subtle">Sprint signal</div>
+        <div className="font-mono text-xs text-foreground tabular-nums">{filled ? "80" : "0"}%</div>
+      </div>
+      <div className="relative h-2 overflow-hidden rounded-full bg-[oklch(0.24_0.008_270)]">
+        <div
+          className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-emerald-400/80 to-emerald-400 shadow-[0_0_18px_-4px_oklch(0.78_0.18_155)]"
+          style={{
+            width: filled ? "80%" : "0%",
+            transition: reduce ? "none" : "width 600ms cubic-bezier(0.16, 1, 0.3, 1)",
+          }}
+        />
+      </div>
+      <div className="mt-2 text-[10px] uppercase tracking-widest text-subtle">
+        80% complete · 40% of standard time
+      </div>
+    </div>
+  );
+}
+
 /* ---------------- Architecture Vault ---------------- */
 function ArchitectureVault() {
   return (
     <section id="resume" className="relative z-10 mx-auto w-full max-w-5xl px-6 pb-32 scroll-mt-24">
       <SectionLabel>Architecture Vault</SectionLabel>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
-        <div className="md:col-span-2">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-subtle">Playbook</div>
-          <h3 className="mt-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">Token Consumption Optimization</h3>
-          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-            A reusable enterprise playbook: balance input/output rate limits, exploit prompt caching, route by complexity, and degrade gracefully under load — without sacrificing premium model quality.
-          </p>
-          <ul className="mt-6 space-y-2 text-sm text-muted-foreground">
-            {["Tiered model routing", "Context window budgeting", "Prompt + KV cache hits", "Speculative decoding"].map((x) => (
-              <li key={x} className="flex items-center gap-2">
-                <span className="h-1 w-1 rounded-full bg-[#a78bfa]" />
-                {x}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="md:col-span-3">
-          <div className="overflow-hidden rounded-2xl border border-border bg-card">
-            <div className="flex items-center gap-2 border-b border-border bg-[oklch(0.18_0.005_270)] px-4 py-2.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-[oklch(0.45_0.02_30)]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[oklch(0.45_0.02_85)]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[oklch(0.45_0.05_150)]" />
-              <span className="ml-3 text-xs font-mono text-subtle">token-optimizer.ts</span>
-            </div>
-            <pre className="overflow-x-auto p-5 font-mono text-[12.5px] leading-relaxed text-muted-foreground">
-<code>{`// Tiered routing by signal complexity
-const route = (req: Query) => {
-  if (req.cacheKey && cache.has(req.cacheKey))
-    return models.cached         // ~$0.00 / call
-
-  if (req.complexity < 0.3)
-    return models.haiku          // fast + cheap
-
-  if (req.complexity < 0.7)
-    return models.sonnet         // balanced
-
-  return models.opus             // premium reasoning
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <TriTierPanel />
+        <DeriskingPanel />
+      </div>
+    </section>
+  );
 }
 
-// Budget guardrail per session
-const budget = {
-  input:  120_000,   // ctx tokens
-  output:  4_000,    // hard cap
-  ttl:     90 * 60   // seconds
-}`}</code>
-            </pre>
-          </div>
-        </div>
+function TriTierPanel() {
+  const tiers = [
+    {
+      label: "Tier 1 — Internal Productivity",
+      detail: "Lightweight models · ROI-tracked · API usage capped",
+      barHeight: 6,
+      barOpacity: 0.55,
+      dotColor: "oklch(0.78 0.15 70)",
+      reinforced: false,
+    },
+    {
+      label: "Tier 2 — High-Risk / Confidential",
+      detail: "Enterprise cloud only · AWS Bedrock / Vertex AI / Azure · Hard-encrypted",
+      barHeight: 14,
+      barOpacity: 1,
+      dotColor: "oklch(0.78 0.18 155)",
+      reinforced: true,
+    },
+    {
+      label: "Tier 3 — Lightweight Operations",
+      detail: "Fast-track admin workflows · HR & Finance · Business compliance",
+      barHeight: 10,
+      barOpacity: 0.7,
+      dotColor: "#a78bfa",
+      reinforced: false,
+    },
+  ];
+
+  return (
+    <div className="rounded-2xl border border-border bg-card p-7">
+      <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-subtle">
+        Conceptual Framework
+      </div>
+      <div className="mt-2 inline-flex items-center gap-2 rounded-full border border-border bg-background/40 px-2.5 py-1">
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_oklch(0.78_0.18_155)]" />
+        <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-subtle">
+          Tri-Tier AI Execution Framework
+        </span>
+      </div>
+      <h3 className="mt-5 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        Right-sized infrastructure for right-sized risk
+      </h3>
+
+      <svg
+        viewBox="0 0 480 260"
+        role="img"
+        aria-label="Tri-tier AI execution framework diagram"
+        className="mt-6 w-full"
+      >
+        {tiers.map((t, i) => {
+          const rowY = 24 + i * 80;
+          const barY = rowY + 50 - t.barHeight / 2;
+          return (
+            <g key={t.label}>
+              {i > 0 && (
+                <line x1="0" x2="480" y1={rowY - 6} y2={rowY - 6} stroke="var(--color-border)" strokeWidth="1" />
+              )}
+              <circle cx="10" cy={rowY + 14} r="4" fill={t.dotColor} />
+              <text x="24" y={rowY + 18} fill="var(--color-foreground)" style={{ font: "500 13px var(--font-sans)" }}>
+                {t.label}
+              </text>
+              <text x="24" y={rowY + 36} fill="var(--color-muted-foreground)" style={{ font: "400 11px var(--font-sans)" }}>
+                {t.detail}
+              </text>
+              <rect
+                x="24"
+                y={barY}
+                width="432"
+                height={t.barHeight}
+                rx={t.barHeight / 2}
+                fill={t.dotColor}
+                opacity={t.barOpacity}
+              />
+              {t.reinforced && (
+                <rect
+                  x="22"
+                  y={barY - 2}
+                  width="436"
+                  height={t.barHeight + 4}
+                  rx={(t.barHeight + 4) / 2}
+                  fill="none"
+                  stroke={t.dotColor}
+                  strokeOpacity="0.45"
+                  strokeWidth="1"
+                />
+              )}
+            </g>
+          );
+        })}
+      </svg>
+    </div>
+  );
+}
+
+function DeriskingPanel() {
+  const steps = [
+    "Map stakeholder risk posture",
+    "Build parallel legal + security path",
+    "Embed compliance in Definition of Done",
+    "Ship with governance built in, not bolted on",
+  ];
+  return (
+    <div className="rounded-2xl border border-border bg-card p-7">
+      <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-subtle">
+        Cross-Functional De-risking
+      </div>
+      <h3 className="mt-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        Clearing the Path to Production
+      </h3>
+      <p className="mt-2 text-sm text-muted-foreground">
+        How AI use cases actually get to live deployment
+      </p>
+      <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
+        The architecture is only half the problem. The other half is navigating the org — aligning security teams on encryption standards before they become blockers, working with legal on EU AI Act parameters in parallel with engineering rather than sequentially, and building shared language between compliance and product so governance doesn&apos;t feel like a gate. This is the work that makes the Tri-Tier framework operational rather than theoretical.
+      </p>
+
+      <ol className="mt-6 flex flex-col gap-3 md:flex-row md:items-stretch md:flex-wrap">
+        {steps.map((s, i) => (
+          <li key={s} className="flex flex-1 items-center gap-2">
+            <div className="flex flex-1 items-center gap-2.5 rounded-full border border-border bg-background/40 px-3 py-2">
+              <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full border border-border font-mono text-[10px] text-subtle">
+                {i + 1}
+              </span>
+              <span className="text-[11px] font-medium tracking-tight text-foreground">{s}</span>
+            </div>
+            {i < steps.length - 1 && (
+              <svg className="hidden h-3.5 w-3.5 shrink-0 text-subtle md:block" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 8h10M9 4l4 4-4 4" />
+              </svg>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+/* ---------------- Writing ---------------- */
+function Writing() {
+  return (
+    <section id="writing" className="relative z-10 mx-auto w-full max-w-4xl px-6 pb-32 scroll-mt-24">
+      <SectionLabel>Writing</SectionLabel>
+      <div className="rounded-2xl border border-border bg-card p-8">
+        <h3 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">Writing</h3>
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+          Articles published roughly every week — on AI delivery, enterprise product, and execution frameworks.
+        </p>
       </div>
     </section>
   );
