@@ -47,6 +47,7 @@ function Index() {
       <OperatorsInstinct />
       <OperatingManual />
       <ArchitectureVault />
+      <Writing />
       <ContactFooter />
     </div>
   );
