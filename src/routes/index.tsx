@@ -67,6 +67,9 @@ function FloatingNav() {
         <a href="#manual" className="rounded-full px-3 py-1.5 text-muted-foreground transition-colors hover:bg-card hover:text-foreground">
           Manual
         </a>
+        <a href="#writing" className="rounded-full px-3 py-1.5 text-muted-foreground transition-colors hover:bg-card hover:text-foreground">
+          Writing
+        </a>
         <a href="#resume" className="rounded-full px-3 py-1.5 text-muted-foreground transition-colors hover:bg-card hover:text-foreground">
           Resume
         </a>
