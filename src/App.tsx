@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
   motion,
@@ -12,28 +11,7 @@ import {
 } from "motion/react";
 import { OperatorsInstinct } from "@/components/OperatorsInstinct";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Portfolio — High-signal product execution" },
-      {
-        name: "description",
-        content:
-          "Elite Product & Delivery Orchestrator. Structural alignment and high-trust culture for enterprise AI delivery at record speed.",
-      },
-      { property: "og:title", content: "Portfolio — High-signal product execution" },
-      {
-        property: "og:description",
-        content:
-          "Structural alignment and high-trust culture for enterprise product teams.",
-      },
-      { property: "og:type", content: "website" },
-    ],
-  }),
-  component: Index,
-});
-
-function Index() {
+export default function App() {
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-background text-foreground">
       {/* Ambient backdrop */}
